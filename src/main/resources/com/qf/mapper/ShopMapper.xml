@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.mapper.ShopMapper">
+    <resultMap id="shopMap" type="shop">
+        <id column="shop_id" property="shopId"></id>
+        <result column="shop_name" property="shopName"></result>
+        <result column="shop_price" property="shopPrice"></result>
+        <result column="shop_desc" property="shopDesc"></result>
+    </resultMap>
+    <sql id="selectShop">
+        select * from shop
+    </sql>
+    <select id="selectAll" resultMap="shopMap">
+        <include refid="selectShop"></include>
+    </select>
+    <insert id="addShop" parameterType="shop">
+        insert into shop(shop_name,shop_price,shop_desc)
+        values (#{shopName},#{shopPrice},#{shopDesc})
+    </insert>
+    <update id="update" parameterType="shop">
+        update shop set shop_name = #{shopName},
+        shop_price = #{shopPrice},
+        shop_desc = #{shopDesc}
+        <where>
+            shop_id = #{shopId}
+        </where>
+    </update>
+</mapper>
